@@ -138,4 +138,23 @@ public class Company implements Serializable {
     public void setSalary(int salary) {
         this.salary = salary;
     }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", website='" + website + '\'' +
+                ", numberOfRatings=" + numberOfRatings +
+                ", squareLogo='" + squareLogo + '\'' +
+                ", overallRating=" + overallRating +
+                ", ratingDescription='" + ratingDescription + '\'' +
+                ", cultureAndValuesRating='" + cultureAndValuesRating + '\'' +
+                ", seniorLeadershipRating='" + seniorLeadershipRating + '\'' +
+                ", compensationAndBenefitsRating='" + compensationAndBenefitsRating + '\'' +
+                ", careerOpportunitiesRating='" + careerOpportunitiesRating + '\'' +
+                ", ceo=" + ceo.toString() +
+                ", salary=" + salary +
+                '}';
+    }
 }

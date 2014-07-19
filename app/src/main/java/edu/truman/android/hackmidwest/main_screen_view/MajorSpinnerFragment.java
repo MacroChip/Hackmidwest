@@ -125,9 +125,6 @@ public class MajorSpinnerFragment extends RoboFragment {
                 companyBank.setCompanyList(new ArrayList<Company>());
             }
             ObjectMapper mapper = new ObjectMapper();
-//            JsonFactory jsonFactory = mapper.getJsonFactory();
-//            JsonParser jsonParser = jsonFactory.createJsonParser(response);
-//            JsonNode jsonNode = mapper.readTree(jsonParser);
             JsonNode jsonNode = mapper.readTree(response);
             Company company = mapper.readValue(jsonNode.get("response").get("employers").get(0), Company.class);
             companyBank.getCompanyList().add(company);

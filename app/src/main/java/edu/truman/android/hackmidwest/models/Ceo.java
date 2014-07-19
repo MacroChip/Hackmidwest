@@ -61,4 +61,15 @@ public class Ceo implements Serializable{
     public void setPctDisapprove(int pctDisapprove) {
         this.pctDisapprove = pctDisapprove;
     }
+
+    @Override
+    public String toString() {
+        return "Ceo{" +
+                "name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                ", numberOfRatings=" + numberOfRatings +
+                ", pctApprove=" + pctApprove +
+                ", pctDisapprove=" + pctDisapprove +
+                '}';
+    }
 }
