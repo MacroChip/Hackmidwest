@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.inject.Inject;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
@@ -33,9 +35,11 @@ import edu.truman.android.hackmidwest.R;
 import edu.truman.android.hackmidwest.company_list_view.CompanyListActivity;
 import edu.truman.android.hackmidwest.models.Company;
 import edu.truman.android.hackmidwest.models.CompanyBank;
+import roboguice.fragment.RoboFragment;
 
-public class MajorSpinnerFragment extends Fragment {
+public class MajorSpinnerFragment extends RoboFragment {
 
+    @Inject
     CompanyBank companyBank;
 
     private Spinner spinner;
@@ -45,7 +49,7 @@ public class MajorSpinnerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        companyBank = CompanyBank.getInstance(getActivity());
+//        companyBank = CompanyBank.getInstance(getActivity());
         View view = inflater.inflate(R.layout.fragment_spinner_major, container, false);
         spinner = (Spinner) view.findViewById(R.id.spinner_major);
         submitCompanyButton = (Button) view.findViewById(R.id.spinner_major_submit);
@@ -104,6 +108,7 @@ public class MajorSpinnerFragment extends Fragment {
                     out.write(buffer, 0, bytesRead);
                 }
                 responseString = out.toString();
+                Log.d("MajorSpinnerFragment", responseString);
             } catch (ClientProtocolException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -116,8 +121,8 @@ public class MajorSpinnerFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String string) {
-//            Log.d("ASYnc", string);
             super.onPostExecute(string);
+//            Log.d("ASYnc", string);
         }
     }
 }

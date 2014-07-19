@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.inject.Inject;
+
 import java.util.List;
 
 import edu.truman.android.hackmidwest.R;
@@ -18,15 +20,17 @@ import edu.truman.android.hackmidwest.models.Company;
 import edu.truman.android.hackmidwest.models.CompanyBank;
 import edu.truman.android.hackmidwest.single_company_view.SingleCompanyActivity;
 import edu.truman.android.hackmidwest.single_company_view.SingleCompanyViewFragment;
+import roboguice.fragment.RoboListFragment;
 
-public class CompanyListFragment extends ListFragment {
+public class CompanyListFragment extends RoboListFragment {
 
+    @Inject
     CompanyBank companyBank;
 
     @Override
     public void onCreate(Bundle b) {
         super.onCreate(b);
-        companyBank = CompanyBank.getInstance(getActivity());
+//        companyBank = CompanyBank.getInstance(getActivity());
         CompanyAdapter adapter = new CompanyAdapter(companyBank.getCompanyList());
         setListAdapter(adapter);
     }
