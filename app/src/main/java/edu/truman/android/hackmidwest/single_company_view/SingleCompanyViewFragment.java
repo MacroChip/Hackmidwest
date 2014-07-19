@@ -3,7 +3,6 @@ package edu.truman.android.hackmidwest.single_company_view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,7 @@ public class SingleCompanyViewFragment extends Fragment {
         View view =  inflater.inflate(R.layout.single_company_fragment_view, null);
         companyTitleTextView = (TextView) view.findViewById(R.id.company_title_single_page_view);
         company = (Company) getArguments().getSerializable(COMPANY_KEY);
-        companyTitleTextView.setText(company.getCompanyName() + " Salary: " + company.getSalary());
+        companyTitleTextView.setText(company.getName() + " Salary: " + company.getSalary());
         return view;
     }
 }
