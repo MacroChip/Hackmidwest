@@ -42,6 +42,11 @@ public class MajorSpinnerFragment extends RoboFragment {
         submitCompanyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                MajorsDialog dialog = new MajorsDialog();
+
+
+
                 Intent i = new Intent(getActivity(), CompanyListActivity.class);
                 startActivity(i);
             }
