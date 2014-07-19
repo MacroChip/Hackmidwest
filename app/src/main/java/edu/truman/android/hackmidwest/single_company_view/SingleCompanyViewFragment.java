@@ -32,8 +32,6 @@ public class SingleCompanyViewFragment extends Fragment {
         View view =  inflater.inflate(R.layout.single_company_fragment_view, null);
         companyTitleTextView = (TextView) view.findViewById(R.id.company_title_single_page_view);
         company = (Company) getArguments().getSerializable(COMPANY_KEY);
-        Log.d("BOOM", company.getCompanyName());
-        Log.d("BOOM", company.getSalary() + "");
         companyTitleTextView.setText(company.getCompanyName() + " Salary: " + company.getSalary());
         return view;
     }
