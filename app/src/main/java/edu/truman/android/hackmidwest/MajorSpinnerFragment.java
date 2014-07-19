@@ -9,9 +9,6 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-/**
- * Created by chip on 7/19/14.
- */
 public class MajorSpinnerFragment extends Fragment {
 
     private Spinner spinner;
