@@ -81,7 +81,8 @@ public class MajorSpinnerFragment extends Fragment {
             HttpResponse httpResponse;
             URL url = null;
             try {
-                url = new URL("http://www.google.com");
+                //&useragent=Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36
+                url = new URL("http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=21077&t.k=hZhrmrE66kM&userip=198.248.61.62&action=employers&q=asynchrony&ps=1");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -94,7 +95,6 @@ public class MajorSpinnerFragment extends Fragment {
             try {
                 InputStream in = connection.getInputStream();
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
-                //http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=21077&t.k=hZhrmrE66kM&userip=198.248.61.62&useragent=Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36&action=employers&q=asynchrony&ps=1
                 if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                     return null;
                 }
