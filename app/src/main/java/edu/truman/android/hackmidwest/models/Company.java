@@ -27,12 +27,12 @@ public class Company implements Serializable {
     private int salary;
 
 
-    public Company(int salary)  {
+    public Company(String companyName, int salary)  {
+        name = companyName;
         this.salary = salary;
     }
 
     public Company() {
-
     }
 
     public int getId() {

@@ -28,7 +28,6 @@ public class CompanyListFragment extends RoboListFragment {
     @Override
     public void onCreate(Bundle b) {
         super.onCreate(b);
-//        companyBank = CompanyBank.getInstance(getActivity());
         CompanyAdapter adapter = new CompanyAdapter(companyBank.getCompanyList());
         setListAdapter(adapter);
     }

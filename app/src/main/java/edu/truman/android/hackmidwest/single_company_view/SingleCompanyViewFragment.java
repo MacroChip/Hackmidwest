@@ -10,14 +10,15 @@ import android.widget.TextView;
 
 import edu.truman.android.hackmidwest.R;
 import edu.truman.android.hackmidwest.models.Company;
+import roboguice.fragment.RoboFragment;
 
-public class SingleCompanyViewFragment extends Fragment {
+public class SingleCompanyViewFragment extends RoboFragment {
 
     public static final String COMPANY_KEY = "company model";
     private TextView companyTitleTextView;
     private Company company;
 
-    public static Fragment newInstance(Company company) {
+    public static RoboFragment newInstance(Company company) {
         Bundle args = new Bundle();
         args.putSerializable(COMPANY_KEY, company);
 

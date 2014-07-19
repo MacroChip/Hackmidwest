@@ -24,6 +24,9 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'LICENSE.txt'
         exclude 'APK LICENSE.txt'
+        exclude 'LICENSE'
+        exclude 'APK NOTICE'
+        exclude 'NOTICE'
     }
 }
 

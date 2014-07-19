@@ -1,15 +1,14 @@
 package edu.truman.android.hackmidwest.main_screen_view;
 
-import android.support.v4.app.Fragment;
-
 import edu.truman.android.hackmidwest.R;
 import edu.truman.android.hackmidwest.SingleFragmentActivity;
+import roboguice.fragment.RoboFragment;
 
 
 public class MainActivity extends SingleFragmentActivity {
 
     @Override
-    protected Fragment createFragment() {
+    protected RoboFragment createFragment() {
         return new MajorSpinnerFragment();
     }
 
