@@ -22,7 +22,6 @@ import models.CompanyBank;
 
 public class MajorSpinnerFragment extends Fragment {
 
-    @Inject
     CompanyBank companyBank;
 
     private Spinner spinner;
@@ -32,6 +31,7 @@ public class MajorSpinnerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        companyBank = CompanyBank.getInstance(getActivity());
         View view = inflater.inflate(R.layout.fragment_spinner_major, container, false);
         spinner = (Spinner) view.findViewById(R.id.spinner_major);
         submitCompanyButton = (Button) view.findViewById(R.id.spinner_major_submit);
@@ -50,7 +50,7 @@ public class MajorSpinnerFragment extends Fragment {
     private void setCompanyList() {
         List<Company> companyList = new ArrayList<Company>();
         for (int i = 0; i < 60; i++) {
-            companyList.add(new Company(testCompanies[new Random().nextInt(2)], i));
+            companyList.add(new Company(testCompanies[new Random().nextInt(3)], i));
         }
         companyBank.setCompanyList(companyList);
     }

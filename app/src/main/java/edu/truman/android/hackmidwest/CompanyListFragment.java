@@ -19,11 +19,12 @@ import models.CompanyBank;
 
 public class CompanyListFragment extends ListFragment {
 
-    @Inject
     CompanyBank companyBank;
 
     @Override
     public void onCreate(Bundle b) {
+        super.onCreate(b);
+        companyBank = CompanyBank.getInstance(getActivity());
         CompanyAdapter adapter = new CompanyAdapter(companyBank.getCompanyList());
         setListAdapter(adapter);
     }
@@ -53,7 +54,7 @@ public class CompanyListFragment extends ListFragment {
             }
             Company company = getItem(position);
             holder.companyTitleTextView.setText(company.getCompanyName());
-            holder.companySalaryTextView.setText(String.valueOf(company.getSalary()));
+            holder.companySalaryTextView.setText("Salary: " + String.valueOf(company.getSalary()));
             return convertView;
         }
 
