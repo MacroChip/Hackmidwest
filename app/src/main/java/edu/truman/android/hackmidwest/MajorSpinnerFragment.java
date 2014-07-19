@@ -23,6 +23,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -75,22 +79,37 @@ public class MajorSpinnerFragment extends Fragment {
         protected Void doInBackground(Void... voids) {
             HttpClient httpClient = new DefaultHttpClient();
             HttpResponse httpResponse;
+            URL url = null;
             try {
-                //http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=21077&t.k=hZhrmrE66kM&userip=198.248.61.62&useragent=Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36&action=employers&q=asynchrony&ps=1
-                String uri = "www.google.com";
-                HttpGet httpGet = new HttpGet(uri);
-                httpResponse = httpClient.execute(httpGet);
+                url = new URL("http://www.google.com");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) url.openConnection();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                InputStream in = connection.getInputStream();
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
-                httpResponse.getEntity().writeTo(out);
-                out.close();
-                responseString = out.toString();
-                if (httpResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-                    httpResponse.getEntity().getContent().close();
+                //http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=21077&t.k=hZhrmrE66kM&userip=198.248.61.62&useragent=Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36&action=employers&q=asynchrony&ps=1
+                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                    return null;
                 }
+                int bytesRead = 0;
+                byte[] buffer = new byte[1024];
+                while ((bytesRead = in.read(buffer)) > 0) {
+                    out.write(buffer, 0, bytesRead);
+                }
+                Log.d("ASYNC", out.toString());
             } catch (ClientProtocolException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                connection.disconnect();
             }
             return null;
         }
@@ -98,7 +117,7 @@ public class MajorSpinnerFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Log.d("ASYnc", responseString);
+//            Log.d("ASYnc", responseString);
         }
     }
 }
