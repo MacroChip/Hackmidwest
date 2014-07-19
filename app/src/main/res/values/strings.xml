@@ -4,5 +4,11 @@
     <string name="app_name">Hackmidwest</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="choose_major">View Companies</string>
 
+    <string-array name="majors">
+        <item>Computer Science</item>
+        <item>Accounting</item>
+        <item>Biology</item>
+    </string-array>
 </resources>

@@ -14,7 +14,7 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.main_activity);
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.main_activity_container, new MainFragment())
+                .add(R.id.main_activity_container, new MajorSpinnerFragment())
                 .commit();
     }
 }
