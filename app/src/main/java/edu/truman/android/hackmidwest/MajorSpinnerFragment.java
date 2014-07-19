@@ -21,12 +21,6 @@ public class MajorSpinnerFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_spinner_major, container, false);
         spinner = (Spinner) view.findViewById(R.id.spinner_major);
-        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(getActivity(), "Test", )
-            }
-        });
         return view;
     }
 }
