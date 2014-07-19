@@ -1,15 +1,14 @@
 package edu.truman.android.hackmidwest;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
 import roboguice.activity.RoboFragmentActivity;
+import roboguice.fragment.RoboFragment;
 
 
 public abstract class SingleFragmentActivity extends RoboFragmentActivity{
-    protected abstract Fragment createFragment();
+    protected abstract RoboFragment createFragment();
     protected abstract int getContainerResource();
 
     @Override

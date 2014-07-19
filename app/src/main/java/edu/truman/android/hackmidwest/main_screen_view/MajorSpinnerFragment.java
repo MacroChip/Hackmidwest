@@ -1,24 +1,23 @@
 package edu.truman.android.hackmidwest.main_screen_view;
 
+import roboguice.fragment.RoboFragment;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.inject.Inject;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.ByteArrayOutputStream;
@@ -35,7 +34,6 @@ import edu.truman.android.hackmidwest.R;
 import edu.truman.android.hackmidwest.company_list_view.CompanyListActivity;
 import edu.truman.android.hackmidwest.models.Company;
 import edu.truman.android.hackmidwest.models.CompanyBank;
-import roboguice.fragment.RoboFragment;
 
 public class MajorSpinnerFragment extends RoboFragment {
 
@@ -45,13 +43,17 @@ public class MajorSpinnerFragment extends RoboFragment {
     private Spinner spinner;
     private Button submitCompanyButton;
     String[] testCompanies = new String[] {"CERNER", "BOEING", "ASYNCHRONY"};
+    List<String> majors = new ArrayList<String>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-//        companyBank = CompanyBank.getInstance(getActivity());
         View view = inflater.inflate(R.layout.fragment_spinner_major, container, false);
+
+        populateMajors(majors);
         spinner = (Spinner) view.findViewById(R.id.spinner_major);
+        populateSpinner(spinner, majors);
+
         submitCompanyButton = (Button) view.findViewById(R.id.spinner_major_submit);
         submitCompanyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +66,26 @@ public class MajorSpinnerFragment extends RoboFragment {
         setCompanyList();
         new GlassDoorTask().execute(null, null, null);
         return view;
+    }
+
+    private void populateMajors(List<String> majors) {
+        majors.add("computer science");
+        majors.add("accounting");
+        majors.add("biology");
+        majors.add("business");
+        majors.add("chemistry");
+        majors.add("physics");
+        majors.add("mathematics");
+    }
+
+    private void populateSpinner(Spinner spinner, List<String> majors) {
+        String array_spinner[];
+        array_spinner = new String[majors.size()];
+        for(int i =0; i < majors.size(); i++) {
+            array_spinner[i] = majors.get(i);
+        }
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item, array_spinner);
+        spinner.setAdapter(adapter);
     }
 
     private void setCompanyList() {
