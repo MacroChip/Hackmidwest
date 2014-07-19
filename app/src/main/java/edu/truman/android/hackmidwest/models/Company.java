@@ -1,14 +1,16 @@
 package edu.truman.android.hackmidwest.models;
 
-import java.io.Serializable;
-import java.util.UUID;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Company implements Serializable {
 
-    private UUID id;
+    private int id;
     private String name;
     private String website;
-    //iseep
+    //isEEP
     //exactMatch
     //industry
     private int numberOfRatings;
@@ -17,18 +19,28 @@ public class Company implements Serializable {
     private String ratingDescription;
     private String cultureAndValuesRating;
     private String seniorLeadershipRating;
+    private String compensationAndBenefitsRating;
+    private String careerOpportunitiesRating;
+    //featuredReview
+    private Ceo ceo;
 
     private int salary;
 
 
-    public Company(String name, int salary)  {
-        id = UUID.randomUUID();
-        this.name = name;
+    public Company(int salary)  {
         this.salary = salary;
     }
 
-    public UUID getId() {
+    public Company() {
+
+    }
+
+    public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -37,6 +49,86 @@ public class Company implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public int getNumberOfRatings() {
+        return numberOfRatings;
+    }
+
+    public void setNumberOfRatings(int numberOfRatings) {
+        this.numberOfRatings = numberOfRatings;
+    }
+
+    public String getSquareLogo() {
+        return squareLogo;
+    }
+
+    public void setSquareLogo(String squareLogo) {
+        this.squareLogo = squareLogo;
+    }
+
+    public int getOverallRating() {
+        return overallRating;
+    }
+
+    public void setOverallRating(int overallRating) {
+        this.overallRating = overallRating;
+    }
+
+    public String getRatingDescription() {
+        return ratingDescription;
+    }
+
+    public void setRatingDescription(String ratingDescription) {
+        this.ratingDescription = ratingDescription;
+    }
+
+    public String getCultureAndValuesRating() {
+        return cultureAndValuesRating;
+    }
+
+    public void setCultureAndValuesRating(String cultureAndValuesRating) {
+        this.cultureAndValuesRating = cultureAndValuesRating;
+    }
+
+    public String getSeniorLeadershipRating() {
+        return seniorLeadershipRating;
+    }
+
+    public void setSeniorLeadershipRating(String seniorLeadershipRating) {
+        this.seniorLeadershipRating = seniorLeadershipRating;
+    }
+
+    public String getCompensationAndBenefitsRating() {
+        return compensationAndBenefitsRating;
+    }
+
+    public void setCompensationAndBenefitsRating(String compensationAndBenefitsRating) {
+        this.compensationAndBenefitsRating = compensationAndBenefitsRating;
+    }
+
+    public String getCareerOpportunitiesRating() {
+        return careerOpportunitiesRating;
+    }
+
+    public void setCareerOpportunitiesRating(String careerOpportunitiesRating) {
+        this.careerOpportunitiesRating = careerOpportunitiesRating;
+    }
+
+    public Ceo getCeo() {
+        return ceo;
+    }
+
+    public void setCeo(Ceo ceo) {
+        this.ceo = ceo;
     }
 
     public int getSalary() {

@@ -1,25 +1,24 @@
 package edu.truman.android.hackmidwest.main_screen_view;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.inject.Inject;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -28,14 +27,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import edu.truman.android.hackmidwest.R;
 import edu.truman.android.hackmidwest.company_list_view.CompanyListActivity;
 import edu.truman.android.hackmidwest.models.Company;
 import edu.truman.android.hackmidwest.models.CompanyBank;
 import roboguice.fragment.RoboFragment;
+import roboguice.util.RoboAsyncTask;
 
 public class MajorSpinnerFragment extends RoboFragment {
 
@@ -44,12 +42,11 @@ public class MajorSpinnerFragment extends RoboFragment {
 
     private Spinner spinner;
     private Button submitCompanyButton;
-    String[] testCompanies = new String[] {"CERNER", "BOEING", "ASYNCHRONY"};
+    private String companyToSearch = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-//        companyBank = CompanyBank.getInstance(getActivity());
         View view = inflater.inflate(R.layout.fragment_spinner_major, container, false);
         spinner = (Spinner) view.findViewById(R.id.spinner_major);
         submitCompanyButton = (Button) view.findViewById(R.id.spinner_major_submit);
@@ -62,25 +59,27 @@ public class MajorSpinnerFragment extends RoboFragment {
         });
 
         setCompanyList();
-        new GlassDoorTask().execute(null, null, null);
         return view;
     }
 
     private void setCompanyList() {
-        List<Company> companyList = new ArrayList<Company>();
-        for (int i = 0; i < 60; i++) {
-            companyList.add(new Company(testCompanies[new Random().nextInt(3)], i));
-        }
-        companyBank.setCompanyList(companyList);
+        new GlassDoorTask(companyToSearch).execute();
     }
 
-    private class GlassDoorTask extends AsyncTask<Void, Void, String> {
+    private class GlassDoorTask extends RoboAsyncTask<String> {
 
+        @Inject
+        private CompanyBank companyBank;
 
+        private final String company;
         String responseString = null;
 
-        @Override
-        protected String doInBackground(Void... voids) {
+        public GlassDoorTask(String company) {
+            super(getActivity()); //TODO: does this matter?
+            this.company = company;
+        }
+
+        public String call() throws Exception {
             HttpClient httpClient = new DefaultHttpClient();
             HttpResponse httpResponse;
             URL url = null;
@@ -120,9 +119,18 @@ public class MajorSpinnerFragment extends RoboFragment {
         }
 
         @Override
-        protected void onPostExecute(String string) {
-            super.onPostExecute(string);
-//            Log.d("ASYnc", string);
+        protected void onSuccess(String response) throws Exception {
+            super.onSuccess(response);
+            if (companyBank.getCompanyList() == null) {
+                companyBank.setCompanyList(new ArrayList<Company>());
+            }
+            ObjectMapper mapper = new ObjectMapper();
+//            JsonFactory jsonFactory = mapper.getJsonFactory();
+//            JsonParser jsonParser = jsonFactory.createJsonParser(response);
+//            JsonNode jsonNode = mapper.readTree(jsonParser);
+            JsonNode jsonNode = mapper.readTree(response);
+            Company company = mapper.readValue(jsonNode.get("response").get("employers").get(0), Company.class);
+            companyBank.getCompanyList().add(company);
         }
     }
 }
