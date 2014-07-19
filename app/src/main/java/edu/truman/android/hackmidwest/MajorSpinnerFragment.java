@@ -70,13 +70,13 @@ public class MajorSpinnerFragment extends Fragment {
         companyBank.setCompanyList(companyList);
     }
 
-    private class GlassDoorTask extends AsyncTask<Void, Void, Void> {
+    private class GlassDoorTask extends AsyncTask<Void, Void, String> {
 
 
         String responseString = null;
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected String doInBackground(Void... voids) {
             HttpClient httpClient = new DefaultHttpClient();
             HttpResponse httpResponse;
             URL url = null;
@@ -103,7 +103,7 @@ public class MajorSpinnerFragment extends Fragment {
                 while ((bytesRead = in.read(buffer)) > 0) {
                     out.write(buffer, 0, bytesRead);
                 }
-                Log.d("ASYNC", out.toString());
+                responseString = out.toString();
             } catch (ClientProtocolException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -111,13 +111,13 @@ public class MajorSpinnerFragment extends Fragment {
             } finally {
                 connection.disconnect();
             }
-            return null;
+            return responseString;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-//            Log.d("ASYnc", responseString);
+        protected void onPostExecute(String string) {
+            super.onPostExecute(string);
+            Log.d("ASYnc", responseString);
         }
     }
 }
