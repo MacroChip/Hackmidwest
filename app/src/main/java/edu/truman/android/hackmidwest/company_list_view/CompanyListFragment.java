@@ -1,6 +1,7 @@
-package edu.truman.android.hackmidwest;
+package edu.truman.android.hackmidwest.company_list_view;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
@@ -10,12 +11,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.inject.Inject;
-
 import java.util.List;
 
-import models.Company;
-import models.CompanyBank;
+import edu.truman.android.hackmidwest.R;
+import edu.truman.android.hackmidwest.models.Company;
+import edu.truman.android.hackmidwest.models.CompanyBank;
+import edu.truman.android.hackmidwest.single_company_view.SingleCompanyActivity;
+import edu.truman.android.hackmidwest.single_company_view.SingleCompanyViewFragment;
 
 public class CompanyListFragment extends ListFragment {
 
@@ -32,7 +34,9 @@ public class CompanyListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Company company = ((CompanyAdapter)getListAdapter()).getItem(position);
-        Toast.makeText(getActivity(),company.getCompanyName(), Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(getActivity(), SingleCompanyActivity.class);
+        i.putExtra(SingleCompanyViewFragment.COMPANY_KEY, company);
+        startActivity(i);
     }
 
     private class CompanyAdapter extends ArrayAdapter<Company> {

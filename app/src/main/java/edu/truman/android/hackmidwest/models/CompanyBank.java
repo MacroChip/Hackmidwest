@@ -1,10 +1,7 @@
-package models;
+package edu.truman.android.hackmidwest.models;
 
 import android.content.Context;
 
-import com.google.inject.Singleton;
-
-import java.lang.annotation.Annotation;
 import java.util.List;
 
 public class CompanyBank {

@@ -1,4 +1,4 @@
-package edu.truman.android.hackmidwest;
+package edu.truman.android.hackmidwest.main_screen_view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import com.google.inject.Inject;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import models.Company;
-import models.CompanyBank;
+import edu.truman.android.hackmidwest.R;
+import edu.truman.android.hackmidwest.company_list_view.CompanyListActivity;
+import edu.truman.android.hackmidwest.models.Company;
+import edu.truman.android.hackmidwest.models.CompanyBank;
 
 public class MajorSpinnerFragment extends Fragment {
 

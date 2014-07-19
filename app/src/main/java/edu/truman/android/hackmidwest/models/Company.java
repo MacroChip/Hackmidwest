@@ -1,8 +1,9 @@
-package models;
+package edu.truman.android.hackmidwest.models;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Company {
+public class Company implements Serializable {
 
     private UUID mId;
     private String companyName;
