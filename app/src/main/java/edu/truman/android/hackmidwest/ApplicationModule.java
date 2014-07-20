@@ -7,10 +7,9 @@ import com.google.inject.Singleton;
 
 import edu.truman.android.hackmidwest.models.CompanyBank;
 import edu.truman.android.hackmidwest.models.ExperienceBank;
+import edu.truman.android.hackmidwest.models.MajorsBank;
 
-/**
- * Created by chip on 7/19/14.
- */
+
 public class ApplicationModule extends AbstractModule {
 
     private final Context context;
@@ -23,5 +22,6 @@ public class ApplicationModule extends AbstractModule {
     protected void configure() {
         bind(CompanyBank.class).in(Singleton.class);
         bind(ExperienceBank.class).in(Singleton.class);
+        bind(MajorsBank.class).in(Singleton.class);
     }
 }
