@@ -25,7 +25,7 @@ public class SingleCompanyViewFragment extends RoboFragment {
     private TextView companyTitleTextView;
     private Company company;
 
-    public static RoboFragment newInstance(Company company) {
+    public static RoboFragment newInstance(ExperienceEntry company) {
         Bundle args = new Bundle();
         args.putSerializable(COMPANY_KEY, company);
 
