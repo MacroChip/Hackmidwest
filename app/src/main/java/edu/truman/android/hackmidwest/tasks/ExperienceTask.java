@@ -19,6 +19,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import edu.truman.android.hackmidwest.models.ExperienceBank;
@@ -85,8 +87,11 @@ public class ExperienceTask extends RoboAsyncTask<String> {
         }
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readTree(response);
-        List<ExperienceEntry> experienceEntries = mapper.readValue(jsonNode.get("out"), List.class);
-        experienceBank.setCompanies(experienceEntries);
-        Log.d("Experience Entries", experienceEntries.toString());
+        List<ExperienceEntry> companies = new ArrayList<ExperienceEntry>();
+        for (int i = 0; i < jsonNode.get("out").size(); i++) {
+            companies.add(mapper.readValue(jsonNode.get("out").get(i), ExperienceEntry.class));
+        }
+        experienceBank.setCompanies(companies);
+        Log.d("Experience Entries", experienceBank.toString());
     }
 }
