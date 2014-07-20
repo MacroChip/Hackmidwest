@@ -10,6 +10,7 @@ import edu.truman.android.hackmidwest.models.CompanyBank;
 import edu.truman.android.hackmidwest.models.ExperienceBank;
 import edu.truman.android.hackmidwest.tasks.ExperienceTask;
 import edu.truman.android.hackmidwest.tasks.GlassdoorTask;
+import edu.truman.android.hackmidwest.tasks.MajorsTask;
 import roboguice.fragment.RoboFragment;
 
 
@@ -42,5 +43,7 @@ public class MainActivity extends SingleFragmentActivity {
         new ExperienceTask(this, schoolToSearch).execute();
         //populate CompanyBank
         new GlassdoorTask(this, companyToSearch).execute();
+        //populate majorsBank
+        new MajorsTask(this).execute();
     }
 }
