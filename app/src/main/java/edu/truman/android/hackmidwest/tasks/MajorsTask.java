@@ -86,6 +86,7 @@ public class MajorsTask extends RoboAsyncTask<String> {
         JsonNode jsonNode = mapper.readTree(response);
         List<String> majors = mapper.readValue(jsonNode.get("majors"), List.class);
         majorsBank.setMajors(majors);
+        Log.d("Experience", majorsBank.toString());
     }
 }
 

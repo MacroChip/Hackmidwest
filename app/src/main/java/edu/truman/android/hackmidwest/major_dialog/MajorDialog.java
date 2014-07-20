@@ -3,6 +3,7 @@ package edu.truman.android.hackmidwest.major_dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.bluetooth.BluetoothClass;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,7 +36,7 @@ public class MajorDialog extends RoboDialogFragment {
     MajorsBank majorsBank;
     @Inject
     ExperienceBank experienceBank;
-
+    public static List<ExperienceEntry> listToBeSent;
     Map<String, Integer> mapIdToKey;
     Map<Integer, List<ExperienceEntry>> majorToCompanyMap = new HashMap<Integer, List<ExperienceEntry>>();
 
@@ -59,24 +60,34 @@ public class MajorDialog extends RoboDialogFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String major = (String) parent.getItemAtPosition(position);
-                Log.d("BOOOM", mapIdToKey.get(major) + "");
+                Log.d("DIALOG", major);
+                Log.d("DIALOG", mapIdToKey.get(major) + "");
+                int majorId = mapIdToKey.get(major);
+                listToBeSent = majorToCompanyMap.get(majorId);
             }
         });
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle("Majors")
                 .setView(convertView)
-                .setPositiveButton(android.R.string.ok, null)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        Intent intent = new Intent(getActivity(), CompanyListActivity.class);
+                        startActivity(intent);
+                    }
+                })
                 .create();
     }
 
 
     private void mapMajorsToKeys() {
         List<String> majors = majorsBank.getMajors();
-        Map<Integer, String> mapIdToKey = new HashMap<Integer, String>();
+        mapIdToKey = new HashMap<String, Integer>();
         int i = 0;
         for (String major : majors) {
-            mapIdToKey.put(i, major);
+            mapIdToKey.put(major, i);
             i++;
         }
 

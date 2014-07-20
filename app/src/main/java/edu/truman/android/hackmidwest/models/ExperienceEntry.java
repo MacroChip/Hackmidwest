@@ -10,7 +10,7 @@ import java.util.List;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ExperienceEntry implements Serializable{
+public class ExperienceEntry implements Serializable {
 
     private String name;
     private List<String> majors;
