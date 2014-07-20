@@ -14,8 +14,7 @@ import com.google.inject.Inject;
 import java.util.List;
 
 import edu.truman.android.hackmidwest.R;
-import edu.truman.android.hackmidwest.major_dialog.MajorDialog;
-import edu.truman.android.hackmidwest.models.Company;
+import edu.truman.android.hackmidwest.main_screen_view.MajorFragment;
 import edu.truman.android.hackmidwest.models.CompanyBank;
 import edu.truman.android.hackmidwest.models.ExperienceEntry;
 import edu.truman.android.hackmidwest.single_company_view.SingleCompanyActivity;
@@ -30,7 +29,7 @@ public class CompanyListFragment extends RoboListFragment {
     @Override
     public void onCreate(Bundle b) {
         super.onCreate(b);
-        CompanyAdapter adapter = new CompanyAdapter(MajorDialog.listToBeSent);
+        CompanyAdapter adapter = new CompanyAdapter(MajorFragment.listToBeSent);
         setListAdapter(adapter);
     }
 

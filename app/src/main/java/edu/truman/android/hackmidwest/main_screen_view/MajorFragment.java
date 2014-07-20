@@ -1,18 +1,14 @@
-package edu.truman.android.hackmidwest.major_dialog;
+package edu.truman.android.hackmidwest.main_screen_view;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.bluetooth.BluetoothClass;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,14 +19,12 @@ import javax.inject.Inject;
 
 import edu.truman.android.hackmidwest.R;
 import edu.truman.android.hackmidwest.company_list_view.CompanyListActivity;
-import edu.truman.android.hackmidwest.company_list_view.CompanyListFragment;
-import edu.truman.android.hackmidwest.models.Company;
 import edu.truman.android.hackmidwest.models.ExperienceBank;
 import edu.truman.android.hackmidwest.models.ExperienceEntry;
 import edu.truman.android.hackmidwest.models.MajorsBank;
-import roboguice.fragment.RoboDialogFragment;
+import roboguice.fragment.RoboListFragment;
 
-public class MajorDialog extends RoboDialogFragment {
+public class MajorFragment extends RoboListFragment {
 
     @Inject
     MajorsBank majorsBank;
@@ -41,17 +35,9 @@ public class MajorDialog extends RoboDialogFragment {
     Map<Integer, List<ExperienceEntry>> majorToCompanyMap = new HashMap<Integer, List<ExperienceEntry>>();
 
     @Override
-    public void onCreate(Bundle b) {
-        super.onCreate(b);
-//        populateMajors(majorsBank.getMajors(), experienceBank.getCompanies())
-//            populateMajors(majors);
-    }
-
-    @Override
-    public Dialog onCreateDialog(Bundle bundle) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mapMajorsToKeys();
         populateMajors(majorsBank.getMajors(), experienceBank.getCompanies());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
         View convertView = (View) inflater.inflate(R.layout.majors_list_view, null);
         ListView lv = (ListView) convertView.findViewById(R.id.lv);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, majorsBank.getMajors());
@@ -64,23 +50,12 @@ public class MajorDialog extends RoboDialogFragment {
                 Log.d("DIALOG", mapIdToKey.get(major) + "");
                 int majorId = mapIdToKey.get(major);
                 listToBeSent = majorToCompanyMap.get(majorId);
+                Intent intent = new Intent(getActivity(), CompanyListActivity.class);
+                startActivity(intent);
             }
         });
-
-        return new AlertDialog.Builder(getActivity())
-                .setTitle("Majors")
-                .setView(convertView)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        Intent intent = new Intent(getActivity(), CompanyListActivity.class);
-                        startActivity(intent);
-                    }
-                })
-                .create();
+        return convertView;
     }
-
 
     private void mapMajorsToKeys() {
         List<String> majors = majorsBank.getMajors();
