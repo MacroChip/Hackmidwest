@@ -2,14 +2,20 @@ package edu.truman.android.hackmidwest.company_list_view;
 
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.inject.Inject;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -26,10 +32,34 @@ public class CompanyListFragment extends RoboListFragment {
     ExperienceEntry experienceEntry;
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (NavUtils.getParentActivityIntent(getActivity()) != null) {
+                    NavUtils.navigateUpFromSameTask(getActivity());
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onCreate(Bundle b) {
         super.onCreate(b);
+        setHasOptionsMenu(true);
         CompanyAdapter adapter = new CompanyAdapter(MajorFragment.listToBeSent);
         setListAdapter(adapter);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            if(NavUtils.getParentActivityName(getActivity()) != null) {
+                getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+            }
+        }
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
@@ -52,19 +82,21 @@ public class CompanyListFragment extends RoboListFragment {
                 holder = new ViewHolder();
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.company_list_view, null);
                 holder.companyTitleTextView = (TextView) convertView.findViewById(R.id.company_title_text_view);
-                holder.companySalaryTextView = (TextView) convertView.findViewById(R.id.company_salary_text_view);
+                holder.companyLogoImageView = (ImageView) convertView.findViewById(R.id.company_logo);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
             ExperienceEntry company = getItem(position);
             holder.companyTitleTextView.setText(company.getName());
+            Picasso.with(getActivity()).load("http://example.com/logo.png").into(holder.companyLogoImageView);
+
             return convertView;
         }
 
         private class ViewHolder {
             TextView companyTitleTextView;
-            TextView companySalaryTextView;
+            ImageView companyLogoImageView;
         }
     }
 }
