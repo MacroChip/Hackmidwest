@@ -39,11 +39,6 @@ public class MajorFragment extends RoboListFragment {
     Map<String, Integer> mapIdToKey;
     Map<Integer, List<ExperienceEntry>> majorToCompanyMap = new HashMap<Integer, List<ExperienceEntry>>();
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
@@ -70,23 +65,6 @@ public class MajorFragment extends RoboListFragment {
     @Subscribe
     public void onMajorTaskComplete(MajorsTaskCompleteEvent e) {
         if (experienceBank.getCompanies() != null && majorsBank.getMajors() != null) {
-//            mapMajorsToKeys();
-//            populateMajors(majorsBank.getMajors(), experienceBank.getCompanies());
-//            ListView lv = (Lin) getView().findViewById(R.id.lv);
-//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, majorsBank.getMajors());
-//            lv.setAdapter(adapter);
-//            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    String major = (String) parent.getItemAtPosition(position);
-//                    Log.d("DIALOG", major);
-//                    Log.d("DIALOG", mapIdToKey.get(major) + "");
-//                    int majorId = mapIdToKey.get(major);
-//                    listToBeSent = majorToCompanyMap.get(majorId);
-//                    Intent intent = new Intent(getActivity(), CompanyListActivity.class);
-//                    startActivity(intent);
-//                }
-//            });
             mapMajorsToKeys();
             populateMajors(majorsBank.getMajors(), experienceBank.getCompanies());
             MajorAdapter adapter = new MajorAdapter(majorsBank.getMajors());
@@ -97,23 +75,6 @@ public class MajorFragment extends RoboListFragment {
     @Subscribe
     public void onExperienceTaskComplete(ExperienceTaskCompleteEvent e) {
         if (experienceBank.getCompanies() != null && majorsBank.getMajors() != null) {
-//            mapMajorsToKeys();
-//            populateMajors(majorsBank.getMajors(), experienceBank.getCompanies());
-//            ListView lv = (ListView) getView().findViewById(R.id.lv);
-//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, majorsBank.getMajors());
-//            lv.setAdapter(adapter);
-//            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    String major = (String) parent.getItemAtPosition(position);
-//                    Log.d("DIALOG", major);
-//                    Log.d("DIALOG", mapIdToKey.get(major) + "");
-//                    int majorId = mapIdToKey.get(major);
-//                    listToBeSent = majorToCompanyMap.get(majorId);
-//                    Intent intent = new Intent(getActivity(), CompanyListActivity.class);
-//                    startActivity(intent);
-//                }
-//            });
             mapMajorsToKeys();
             populateMajors(majorsBank.getMajors(), experienceBank.getCompanies());
             MajorAdapter adapter = new MajorAdapter(majorsBank.getMajors());
