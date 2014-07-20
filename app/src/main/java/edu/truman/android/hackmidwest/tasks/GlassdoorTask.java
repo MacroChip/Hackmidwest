@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.inject.Inject;
+import com.squareup.otto.Bus;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.truman.android.hackmidwest.events.GlassdoorTaskCompleteEvent;
 import edu.truman.android.hackmidwest.models.Company;
 import edu.truman.android.hackmidwest.models.CompanyBank;
 import roboguice.util.RoboAsyncTask;
@@ -31,6 +33,8 @@ public class GlassdoorTask extends RoboAsyncTask<String> {
 
     @Inject
     private CompanyBank companyBank;
+    @Inject
+    private Bus bus;
 
     private final String company;
     String responseString = null;
@@ -90,5 +94,6 @@ public class GlassdoorTask extends RoboAsyncTask<String> {
         List<Company> companies = new ArrayList<Company>();
         companies.add(company);
         companyBank.setCompanyList(companies);
+        bus.post(new GlassdoorTaskCompleteEvent());
     }
 }

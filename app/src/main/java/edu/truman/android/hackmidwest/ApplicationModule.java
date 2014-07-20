@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
+import com.squareup.otto.Bus;
 
 import edu.truman.android.hackmidwest.models.CompanyBank;
 import edu.truman.android.hackmidwest.models.ExperienceBank;
@@ -22,5 +23,6 @@ public class ApplicationModule extends AbstractModule {
         bind(CompanyBank.class).in(Singleton.class);
         bind(ExperienceBank.class).in(Singleton.class);
         bind(MajorsBank.class).in(Singleton.class);
+        bind(Bus.class).in(Singleton.class);
     }
 }

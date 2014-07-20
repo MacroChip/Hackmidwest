@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.inject.Inject;
+import com.squareup.otto.Bus;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.truman.android.hackmidwest.events.MajorsTaskCompleteEvent;
 import edu.truman.android.hackmidwest.models.Company;
 import edu.truman.android.hackmidwest.models.CompanyBank;
 import edu.truman.android.hackmidwest.models.MajorsBank;
@@ -34,6 +36,8 @@ public class MajorsTask extends RoboAsyncTask<String> {
     private MajorsBank majorsBank;
 
     String responseString = null;
+    @Inject
+    private Bus bus;
 
     public MajorsTask(Context context) {
         super(context); //TODO: does this matter?
@@ -87,6 +91,7 @@ public class MajorsTask extends RoboAsyncTask<String> {
         List<String> majors = mapper.readValue(jsonNode.get("majors"), List.class);
         majorsBank.setMajors(majors);
         Log.d("Experience", majorsBank.toString());
+        bus.post(new MajorsTaskCompleteEvent());
     }
 }
 

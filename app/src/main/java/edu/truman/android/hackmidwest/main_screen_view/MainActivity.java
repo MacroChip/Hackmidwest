@@ -18,6 +18,8 @@ import roboguice.activity.RoboFragmentActivity;
 import roboguice.activity.RoboListActivity;
 import roboguice.fragment.RoboFragment;
 
+import static java.lang.Thread.sleep;
+
 
 public class MainActivity extends RoboFragmentActivity {
     @Inject

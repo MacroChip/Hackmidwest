@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.inject.Inject;
+import com.squareup.otto.Bus;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -19,10 +20,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 
+import edu.truman.android.hackmidwest.events.ExperienceTaskCompleteEvent;
 import edu.truman.android.hackmidwest.models.ExperienceBank;
 import edu.truman.android.hackmidwest.models.ExperienceEntry;
 import roboguice.util.RoboAsyncTask;
@@ -32,6 +32,8 @@ public class ExperienceTask extends RoboAsyncTask<String> {
     public static final String EXPERIENCE = "http://hackmw-wruman.rhcloud.com/api/employer-list";
     @Inject
     private ExperienceBank experienceBank;
+    @Inject
+    private Bus bus;
     private String responseString = null;
     private final String school;
 
@@ -93,5 +95,6 @@ public class ExperienceTask extends RoboAsyncTask<String> {
         }
         experienceBank.setCompanies(companies);
         Log.d("Experience", experienceBank.toString());
+        bus.post(new ExperienceTaskCompleteEvent());
     }
 }
