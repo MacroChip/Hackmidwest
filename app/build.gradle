@@ -37,4 +37,5 @@ dependencies {
     compile 'org.roboguice:roboguice:2.0'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
     compile 'org.mockito:mockito-all:1.8.4'
+    compile group:'com.squareup.picasso', name:'picasso', version:'2.3.2'
 }
