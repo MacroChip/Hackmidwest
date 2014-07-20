@@ -36,8 +36,6 @@ public class MainActivity extends RoboFragmentActivity {
     private void setCompanyList() {
         //populate ExperienceBank
         new ExperienceTask(this, schoolToSearch).execute();
-        //populate CompanyBank
-        new GlassdoorTask(this, companyToSearch).execute();
         //populate majorsBank
         new MajorsTask(this).execute();
     }
