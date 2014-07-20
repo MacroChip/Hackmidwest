@@ -19,6 +19,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.truman.android.hackmidwest.models.Company;
 import edu.truman.android.hackmidwest.models.CompanyBank;
@@ -87,7 +88,9 @@ public class GlassdoorTask extends RoboAsyncTask<String> {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readTree(response);
         Company company = mapper.readValue(jsonNode.get("response").get("employers").get(0), Company.class);
-        companyBank.getCompanyList().add(company);
+        List<Company> companies = new ArrayList<Company>();
+        companies.add(company);
+        companyBank.setCompanyList(companies);
         Log.d("Glassdoor", companyBank.toString());
     }
 }
