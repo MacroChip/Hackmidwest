@@ -21,17 +21,20 @@ import java.util.List;
 
 import edu.truman.android.hackmidwest.R;
 import edu.truman.android.hackmidwest.main_screen_view.MajorFragment;
+import edu.truman.android.hackmidwest.models.Company;
 import edu.truman.android.hackmidwest.models.CompanyBank;
 import edu.truman.android.hackmidwest.models.ExperienceEntry;
 import edu.truman.android.hackmidwest.single_company_view.SingleCompanyActivity;
 import edu.truman.android.hackmidwest.single_company_view.SingleCompanyViewFragment;
-import edu.truman.android.hackmidwest.tasks.GlassdoorTask;
 import roboguice.fragment.RoboListFragment;
 
 public class CompanyListFragment extends RoboListFragment {
     public static final String LIST = "some list";
     @Inject
     ExperienceEntry experienceEntry;
+    @Inject
+    CompanyBank companyBank;
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -56,7 +59,7 @@ public class CompanyListFragment extends RoboListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if(NavUtils.getParentActivityName(getActivity()) != null) {
+            if (NavUtils.getParentActivityName(getActivity()) != null) {
                 getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
             }
         }
@@ -65,7 +68,7 @@ public class CompanyListFragment extends RoboListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        ExperienceEntry company = ((CompanyAdapter)getListAdapter()).getItem(position);
+        ExperienceEntry company = ((CompanyAdapter) getListAdapter()).getItem(position);
         Intent i = new Intent(getActivity(), SingleCompanyActivity.class);
         i.putExtra(SingleCompanyViewFragment.COMPANY_KEY, company);
         startActivity(i);
@@ -88,10 +91,9 @@ public class CompanyListFragment extends RoboListFragment {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            ExperienceEntry company = getItem(position);
-            holder.companyTitleTextView.setText(company.getName());
-            Picasso.with(getActivity()).load("http://example.com/logo.png").into(holder.companyLogoImageView);
+            ExperienceEntry companyEntry = getItem(position);
 
+            holder.companyTitleTextView.setText(companyEntry.getName());
             return convertView;
         }
 

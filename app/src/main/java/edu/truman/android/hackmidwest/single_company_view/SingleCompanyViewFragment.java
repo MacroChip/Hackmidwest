@@ -8,14 +8,17 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.inject.Inject;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
 
 import edu.truman.android.hackmidwest.R;
 import edu.truman.android.hackmidwest.events.GlassdoorTaskCompleteEvent;
+import edu.truman.android.hackmidwest.models.Company;
 import edu.truman.android.hackmidwest.models.CompanyBank;
 import edu.truman.android.hackmidwest.models.ExperienceBank;
 import edu.truman.android.hackmidwest.models.ExperienceEntry;
@@ -31,9 +34,10 @@ public class SingleCompanyViewFragment extends RoboFragment {
     @Inject
     private CompanyBank companyBank;
 
-    public static final String COMPANY_KEY = "company model";
+    ImageView companyLogo;
+    public static final String COMPANY_KEY = "companyEntry model";
     private TextView companyTitleTextView;
-    private ExperienceEntry company;
+    private ExperienceEntry companyEntry;
 
     public static RoboFragment newInstance(ExperienceEntry company) {
         Bundle args = new Bundle();
@@ -76,8 +80,8 @@ public class SingleCompanyViewFragment extends RoboFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        company = (ExperienceEntry) getArguments().getSerializable(COMPANY_KEY);
-        new GlassdoorTask(getActivity(), company.getName()).execute();
+        companyEntry = (ExperienceEntry) getArguments().getSerializable(COMPANY_KEY);
+        new GlassdoorTask(getActivity(), companyEntry.getName()).execute();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             if(NavUtils.getParentActivityName(getActivity()) != null) {
                 getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -85,10 +89,11 @@ public class SingleCompanyViewFragment extends RoboFragment {
         }
 
         View view =  inflater.inflate(R.layout.single_company_fragment_view, null);
+        companyLogo = (ImageView) view.findViewById(R.id.company_logo);
 
         companyTitleTextView = (TextView) view.findViewById(R.id.company_title_single_page_view);
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(company.toString());
+        stringBuilder.append(companyEntry.toString());
         companyTitleTextView.setText(stringBuilder.toString());
         return view;
     }
@@ -97,5 +102,13 @@ public class SingleCompanyViewFragment extends RoboFragment {
     public void onGlassdoorTaskComplete(GlassdoorTaskCompleteEvent e) {
         companyTitleTextView.setText(companyTitleTextView.getText() +
                 companyBank.getCompanyList().get(0).toString());
+        String photoUrl = null;
+        for(Company company : companyBank.getCompanyList()) {
+            if (company.getName().equals(companyEntry.getName())) {
+                photoUrl = company.getSquareLogo();
+            }
+        }
+
+        Picasso.with(getActivity()).load(photoUrl).into(companyLogo);
     }
 }
