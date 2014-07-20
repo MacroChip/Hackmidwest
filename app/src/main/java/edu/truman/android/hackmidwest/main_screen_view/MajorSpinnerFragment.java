@@ -1,24 +1,14 @@
 package edu.truman.android.hackmidwest.main_screen_view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import edu.truman.android.hackmidwest.R;
 import edu.truman.android.hackmidwest.major_dialog.MajorDialog;
-import edu.truman.android.hackmidwest.models.Company;
 import roboguice.fragment.RoboFragment;
 
 public class MajorSpinnerFragment extends RoboFragment {

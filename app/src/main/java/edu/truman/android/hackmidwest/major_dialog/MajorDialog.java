@@ -2,6 +2,8 @@ package edu.truman.android.hackmidwest.major_dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.bluetooth.BluetoothClass;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,36 +17,51 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import edu.truman.android.hackmidwest.R;
+import edu.truman.android.hackmidwest.company_list_view.CompanyListActivity;
+import edu.truman.android.hackmidwest.company_list_view.CompanyListFragment;
 import edu.truman.android.hackmidwest.models.Company;
+import edu.truman.android.hackmidwest.models.ExperienceBank;
+import edu.truman.android.hackmidwest.models.ExperienceEntry;
+import edu.truman.android.hackmidwest.models.MajorsBank;
 import roboguice.fragment.RoboDialogFragment;
 
 public class MajorDialog extends RoboDialogFragment {
 
-    List<String> majorsList = new ArrayList<String>();
-    Map<String, List<Company>> majorToCompanyMap = new HashMap<String, List<Company>>();
+    @Inject
+    MajorsBank majorsBank;
+    @Inject
+    ExperienceBank experienceBank;
+
+    ArrayList<ExperienceEntry> majorsList = new ArrayList<ExperienceEntry>();
+    HashMap<String, ArrayList<Company>> majorToCompanyMap = new HashMap<String, ArrayList<Company>>();
+
+    List<String> majors = new ArrayList<String>();
+
+    @Override
+    public void onCreate(Bundle b) {
+        super.onCreate(b);
+//        populateMajors(majorsBank.getMajors(), experienceBank.getCompanies())
+            populateMajors(majors);
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle bundle) {
-        majorsList.add("computer science");
-        majorsList.add("accounting");
-        majorsList.add("biology");
-        majorsList.add("business");
-        majorsList.add("chemistry");
-        majorsList.add("physics");
-        majorsList.add("mathematics");
-
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View convertView = (View) inflater.inflate(R.layout.majors_list_view, null);
         ListView lv = (ListView) convertView.findViewById(R.id.lv);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, majorsList);
-//        lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, majorsBank.getMajors());
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String major = (String) parent.getItemAtPosition(position);
-                Toast.makeText(getActivity(),major, Toast.LENGTH_SHORT).show();
+                Company company = majorToCompanyMap.get(major).get(0);
+                Toast.makeText(getActivity(), company.getName(), Toast.LENGTH_SHORT).show();
+//                Intent i = new Intent(MajorDialog.this, CompanyListActivity.class);
+//                i.putExtra(CompanyListFragment.LIST, company);
             }
         });
 
@@ -83,4 +100,18 @@ public class MajorDialog extends RoboDialogFragment {
         majors.add("physics");
         majors.add("mathematics");
     }
+
+//
+//    private void populateMajors(List<String> majors, List<ExperienceEntry> experience) {
+//        majorsList.clear();
+//        for (String major : majors) {
+//            for (ExperienceEntry entry : experience) {
+//                if (entry.getMajors().contains(major)) {
+//                    majorsList.add(entry);
+//                }
+//            }
+//            majorToCompanyMap.put(major, majorsList);
+//            majorsList.clear();
+//        }
+//    }
 }
