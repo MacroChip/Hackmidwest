@@ -22,7 +22,7 @@ public class Company implements Serializable {
     private String compensationAndBenefitsRating;
     private String careerOpportunitiesRating;
     //featuredReview
-    private Ceo ceo;
+    private Ceo ceo = new Ceo();
 
     private int salary;
 

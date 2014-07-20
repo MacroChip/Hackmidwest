@@ -1,6 +1,7 @@
 package edu.truman.android.hackmidwest.tasks;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.inject.Inject;
 import com.squareup.otto.Bus;
@@ -28,19 +29,21 @@ import roboguice.util.RoboAsyncTask;
 
 public class GlassdoorTask extends RoboAsyncTask<String> {
 
-    public static final String GLASSDOOR = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=21077&t.k=hZhrmrE66kM&userip=198.248.61.62&action=employers&q=asynchrony&ps=1";
+    public final String GLASSDOOR;
 
     @Inject
     private CompanyBank companyBank;
+
     @Inject
     private Bus bus;
-
     private final String company;
-    String responseString = null;
 
+    String responseString = null;
     public GlassdoorTask(Context context, String company) {
         super(context); //TODO: does this matter?
         this.company = company;
+        GLASSDOOR = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=21077&t.k=hZhrmrE66kM&userip=198.248.61.62&action=employers&q=" + company.replaceAll("\\s", "%20").trim() + "&ps=1";
+        Log.d("GLASSDOOR", company.replaceAll("\\s", "%20").trim());
     }
 
     public String call() throws Exception {
@@ -63,6 +66,7 @@ public class GlassdoorTask extends RoboAsyncTask<String> {
             InputStream in = connection.getInputStream();
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                Log.d("GLASSDOOR", "request failed");
                 return null;
             }
             int bytesRead = 0;
@@ -71,6 +75,7 @@ public class GlassdoorTask extends RoboAsyncTask<String> {
                 out.write(buffer, 0, bytesRead);
             }
             responseString = out.toString();
+            Log.d("GLASSDOOR", responseString);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
