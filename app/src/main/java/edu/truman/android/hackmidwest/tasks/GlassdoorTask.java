@@ -68,7 +68,6 @@ public class GlassdoorTask extends RoboAsyncTask<String> {
                 out.write(buffer, 0, bytesRead);
             }
             responseString = out.toString();
-            Log.d("Glassdoor", responseString);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -91,6 +90,5 @@ public class GlassdoorTask extends RoboAsyncTask<String> {
         List<Company> companies = new ArrayList<Company>();
         companies.add(company);
         companyBank.setCompanyList(companies);
-        Log.d("Glassdoor", companyBank.toString());
     }
 }

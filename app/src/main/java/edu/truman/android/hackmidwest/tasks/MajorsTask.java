@@ -66,7 +66,6 @@ public class MajorsTask extends RoboAsyncTask<String> {
                 out.write(buffer, 0, bytesRead);
             }
             responseString = out.toString();
-            Log.d("Majors", responseString);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -87,7 +86,6 @@ public class MajorsTask extends RoboAsyncTask<String> {
         JsonNode jsonNode = mapper.readTree(response);
         List<String> majors = mapper.readValue(jsonNode.get("majors"), List.class);
         majorsBank.setMajors(majors);
-        Log.d("Majors", majorsBank.toString());
     }
 }
 

@@ -68,7 +68,6 @@ public class ExperienceTask extends RoboAsyncTask<String> {
                 out.write(buffer, 0, bytesRead);
             }
             responseString = out.toString();
-            Log.d("Experience", responseString);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -92,6 +91,5 @@ public class ExperienceTask extends RoboAsyncTask<String> {
             companies.add(mapper.readValue(jsonNode.get("out").get(i), ExperienceEntry.class));
         }
         experienceBank.setCompanies(companies);
-        Log.d("Experience Entries", experienceBank.toString());
     }
 }
