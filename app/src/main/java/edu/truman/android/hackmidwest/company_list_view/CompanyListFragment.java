@@ -21,7 +21,7 @@ import edu.truman.android.hackmidwest.single_company_view.SingleCompanyViewFragm
 import roboguice.fragment.RoboListFragment;
 
 public class CompanyListFragment extends RoboListFragment {
-
+    public static final String LIST = "some list";
     @Inject
     CompanyBank companyBank;
 

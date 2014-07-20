@@ -9,7 +9,6 @@ import edu.truman.android.hackmidwest.models.CompanyBank;
 import edu.truman.android.hackmidwest.models.ExperienceBank;
 import edu.truman.android.hackmidwest.models.MajorsBank;
 
-
 public class ApplicationModule extends AbstractModule {
 
     private final Context context;

@@ -66,6 +66,7 @@ public class ExperienceTask extends RoboAsyncTask<String> {
             byte[] buffer = new byte[1024];
             while ((bytesRead = in.read(buffer)) > 0) {
                 out.write(buffer, 0, bytesRead);
+            Log.d("Experience", responseString);
             }
             responseString = out.toString();
         } catch (ClientProtocolException e) {
