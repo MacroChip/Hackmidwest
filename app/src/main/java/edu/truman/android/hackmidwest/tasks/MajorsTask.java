@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.truman.android.hackmidwest.events.MajorsTaskCompleteEvent;
-import edu.truman.android.hackmidwest.models.Company;
-import edu.truman.android.hackmidwest.models.CompanyBank;
 import edu.truman.android.hackmidwest.models.MajorsBank;
 import roboguice.util.RoboAsyncTask;
 

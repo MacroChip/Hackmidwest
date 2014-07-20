@@ -2,13 +2,11 @@ package edu.truman.android.hackmidwest.main_screen_view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
@@ -29,8 +27,6 @@ import edu.truman.android.hackmidwest.models.ExperienceEntry;
 import edu.truman.android.hackmidwest.models.MajorsBank;
 import roboguice.fragment.RoboListFragment;
 
-import static java.lang.Thread.sleep;
-
 public class MajorFragment extends RoboListFragment {
 
     @Inject
@@ -44,9 +40,19 @@ public class MajorFragment extends RoboListFragment {
     Map<Integer, List<ExperienceEntry>> majorToCompanyMap = new HashMap<Integer, List<ExperienceEntry>>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View convertView = (View) inflater.inflate(R.layout.majors_list_view, null);
-        return convertView;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        String major = ((MajorAdapter) getListAdapter()).getItem(position);
+        int majorId = mapIdToKey.get(major);
+        listToBeSent = majorToCompanyMap.get(majorId);
+        Intent intent = new Intent(getActivity(), CompanyListActivity.class);
+        startActivity(intent);
+
     }
 
     @Override
@@ -64,46 +70,54 @@ public class MajorFragment extends RoboListFragment {
     @Subscribe
     public void onMajorTaskComplete(MajorsTaskCompleteEvent e) {
         if (experienceBank.getCompanies() != null && majorsBank.getMajors() != null) {
+//            mapMajorsToKeys();
+//            populateMajors(majorsBank.getMajors(), experienceBank.getCompanies());
+//            ListView lv = (Lin) getView().findViewById(R.id.lv);
+//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, majorsBank.getMajors());
+//            lv.setAdapter(adapter);
+//            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    String major = (String) parent.getItemAtPosition(position);
+//                    Log.d("DIALOG", major);
+//                    Log.d("DIALOG", mapIdToKey.get(major) + "");
+//                    int majorId = mapIdToKey.get(major);
+//                    listToBeSent = majorToCompanyMap.get(majorId);
+//                    Intent intent = new Intent(getActivity(), CompanyListActivity.class);
+//                    startActivity(intent);
+//                }
+//            });
             mapMajorsToKeys();
             populateMajors(majorsBank.getMajors(), experienceBank.getCompanies());
-            ListView lv = (ListView) getView().findViewById(R.id.lv);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, majorsBank.getMajors());
-            lv.setAdapter(adapter);
-            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String major = (String) parent.getItemAtPosition(position);
-                    Log.d("DIALOG", major);
-                    Log.d("DIALOG", mapIdToKey.get(major) + "");
-                    int majorId = mapIdToKey.get(major);
-                    listToBeSent = majorToCompanyMap.get(majorId);
-                    Intent intent = new Intent(getActivity(), CompanyListActivity.class);
-                    startActivity(intent);
-                }
-            });
+            MajorAdapter adapter = new MajorAdapter(majorsBank.getMajors());
+            setListAdapter(adapter);
         }
     }
 
     @Subscribe
     public void onExperienceTaskComplete(ExperienceTaskCompleteEvent e) {
         if (experienceBank.getCompanies() != null && majorsBank.getMajors() != null) {
+//            mapMajorsToKeys();
+//            populateMajors(majorsBank.getMajors(), experienceBank.getCompanies());
+//            ListView lv = (ListView) getView().findViewById(R.id.lv);
+//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, majorsBank.getMajors());
+//            lv.setAdapter(adapter);
+//            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    String major = (String) parent.getItemAtPosition(position);
+//                    Log.d("DIALOG", major);
+//                    Log.d("DIALOG", mapIdToKey.get(major) + "");
+//                    int majorId = mapIdToKey.get(major);
+//                    listToBeSent = majorToCompanyMap.get(majorId);
+//                    Intent intent = new Intent(getActivity(), CompanyListActivity.class);
+//                    startActivity(intent);
+//                }
+//            });
             mapMajorsToKeys();
             populateMajors(majorsBank.getMajors(), experienceBank.getCompanies());
-            ListView lv = (ListView) getView().findViewById(R.id.lv);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, majorsBank.getMajors());
-            lv.setAdapter(adapter);
-            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String major = (String) parent.getItemAtPosition(position);
-                    Log.d("DIALOG", major);
-                    Log.d("DIALOG", mapIdToKey.get(major) + "");
-                    int majorId = mapIdToKey.get(major);
-                    listToBeSent = majorToCompanyMap.get(majorId);
-                    Intent intent = new Intent(getActivity(), CompanyListActivity.class);
-                    startActivity(intent);
-                }
-            });
+            MajorAdapter adapter = new MajorAdapter(majorsBank.getMajors());
+            setListAdapter(adapter);
         }
     }
 
@@ -115,7 +129,6 @@ public class MajorFragment extends RoboListFragment {
             mapIdToKey.put(major, i);
             i++;
         }
-
     }
 
     private void populateMajors(List<String> majors, List<ExperienceEntry> experience) {
@@ -127,6 +140,22 @@ public class MajorFragment extends RoboListFragment {
                 }
             }
             majorToCompanyMap.put(mapIdToKey.get(major), experienceCompanyList);
+        }
+    }
+
+    private class MajorAdapter extends ArrayAdapter<String> {
+        public MajorAdapter(List<String> majors) {
+            super(getActivity(), 0, majors);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            convertView = getActivity().getLayoutInflater().inflate(R.layout.majors_list_view, null);
+            TextView majorTitleView = (TextView) convertView.findViewById(R.id.major_title);
+            String majorTitle = getItem(position);
+            majorTitleView.setText(majorTitle);
+
+            return convertView;
         }
     }
 }

@@ -15,7 +15,6 @@ import java.util.List;
 
 import edu.truman.android.hackmidwest.R;
 import edu.truman.android.hackmidwest.main_screen_view.MajorFragment;
-import edu.truman.android.hackmidwest.models.CompanyBank;
 import edu.truman.android.hackmidwest.models.ExperienceEntry;
 import edu.truman.android.hackmidwest.single_company_view.SingleCompanyActivity;
 import edu.truman.android.hackmidwest.single_company_view.SingleCompanyViewFragment;
@@ -24,7 +23,7 @@ import roboguice.fragment.RoboListFragment;
 public class CompanyListFragment extends RoboListFragment {
     public static final String LIST = "some list";
     @Inject
-    CompanyBank companyBank;
+    ExperienceEntry experienceEntry;
 
     @Override
     public void onCreate(Bundle b) {

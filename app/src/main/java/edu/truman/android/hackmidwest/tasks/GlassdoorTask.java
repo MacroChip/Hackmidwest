@@ -1,7 +1,6 @@
 package edu.truman.android.hackmidwest.tasks;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.inject.Inject;
 import com.squareup.otto.Bus;

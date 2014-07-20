@@ -6,19 +6,12 @@ import android.support.v4.app.FragmentManager;
 import com.google.inject.Inject;
 
 import edu.truman.android.hackmidwest.R;
-import edu.truman.android.hackmidwest.SingleFragmentActivity;
-import edu.truman.android.hackmidwest.company_list_view.CompanyListFragment;
 import edu.truman.android.hackmidwest.models.CompanyBank;
 import edu.truman.android.hackmidwest.models.ExperienceBank;
 import edu.truman.android.hackmidwest.tasks.ExperienceTask;
 import edu.truman.android.hackmidwest.tasks.GlassdoorTask;
 import edu.truman.android.hackmidwest.tasks.MajorsTask;
-import roboguice.activity.RoboActivity;
 import roboguice.activity.RoboFragmentActivity;
-import roboguice.activity.RoboListActivity;
-import roboguice.fragment.RoboFragment;
-
-import static java.lang.Thread.sleep;
 
 
 public class MainActivity extends RoboFragmentActivity {
