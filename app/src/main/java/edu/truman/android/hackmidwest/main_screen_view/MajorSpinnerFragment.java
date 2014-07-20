@@ -17,6 +17,7 @@ import java.util.Map;
 
 import edu.truman.android.hackmidwest.R;
 import edu.truman.android.hackmidwest.company_list_view.CompanyListActivity;
+import edu.truman.android.hackmidwest.major_dialog.MajorDialog;
 import edu.truman.android.hackmidwest.models.Company;
 import roboguice.fragment.RoboFragment;
 
@@ -43,7 +44,7 @@ public class MajorSpinnerFragment extends RoboFragment {
             @Override
             public void onClick(View v) {
 
-                MajorsDialog dialog = new MajorsDialog();
+                MajorDialog dialog = new MajorDialog();
 
 
 
