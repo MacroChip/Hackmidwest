@@ -52,14 +52,16 @@ public class MajorDialog extends RoboDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View convertView = (View) inflater.inflate(R.layout.majors_list_view, null);
         ListView lv = (ListView) convertView.findViewById(R.id.lv);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, majorsBank.getMajors());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, majors);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String major = (String) parent.getItemAtPosition(position);
-                Company company = majorToCompanyMap.get(major).get(0);
-                Toast.makeText(getActivity(), company.getName(), Toast.LENGTH_SHORT).show();
+
+                ArrayList<Company> companies = majorToCompanyMap.get(major);
+//                Company company = majorToCompanyMap.get(major).get(0);
+                Toast.makeText(getActivity(), companies.size(), Toast.LENGTH_SHORT).show();
 //                Intent i = new Intent(MajorDialog.this, CompanyListActivity.class);
 //                i.putExtra(CompanyListFragment.LIST, company);
             }
