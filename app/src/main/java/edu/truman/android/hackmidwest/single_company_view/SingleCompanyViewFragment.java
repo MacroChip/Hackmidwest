@@ -81,7 +81,8 @@ public class SingleCompanyViewFragment extends RoboFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         companyEntry = (ExperienceEntry) getArguments().getSerializable(COMPANY_KEY);
-        new GlassdoorTask(getActivity(), companyEntry.getName()).execute();
+        String glassdoorUrl = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=21077&t.k=hZhrmrE66kM&userip=198.248.61.62&action=employers&q=" + companyEntry.getName().replaceAll("\\s", "%20").trim() + "&ps=1";
+        new GlassdoorTask(getActivity(), glassdoorUrl).execute();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             if(NavUtils.getParentActivityName(getActivity()) != null) {
                 getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);

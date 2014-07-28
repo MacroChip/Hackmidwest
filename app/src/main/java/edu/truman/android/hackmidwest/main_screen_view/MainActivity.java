@@ -9,7 +9,6 @@ import edu.truman.android.hackmidwest.R;
 import edu.truman.android.hackmidwest.models.CompanyBank;
 import edu.truman.android.hackmidwest.models.ExperienceBank;
 import edu.truman.android.hackmidwest.tasks.ExperienceTask;
-import edu.truman.android.hackmidwest.tasks.GlassdoorTask;
 import edu.truman.android.hackmidwest.tasks.MajorsTask;
 import roboguice.activity.RoboFragmentActivity;
 
@@ -35,7 +34,7 @@ public class MainActivity extends RoboFragmentActivity {
 
     private void setCompanyList() {
         //populate ExperienceBank
-        new ExperienceTask(this, schoolToSearch).execute();
+        new ExperienceTask(this).execute();
         //populate majorsBank
         new MajorsTask(this).execute();
     }

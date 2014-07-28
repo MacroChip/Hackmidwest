@@ -15,13 +15,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.inject.Inject;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import edu.truman.android.hackmidwest.R;
 import edu.truman.android.hackmidwest.main_screen_view.MajorFragment;
-import edu.truman.android.hackmidwest.models.Company;
 import edu.truman.android.hackmidwest.models.CompanyBank;
 import edu.truman.android.hackmidwest.models.ExperienceEntry;
 import edu.truman.android.hackmidwest.single_company_view.SingleCompanyActivity;
